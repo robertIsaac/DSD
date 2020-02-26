@@ -2,5 +2,46 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1, 
   "newProjectRoot": "projects",
-  "projects": {}
+  "projects": {
+    "dsd": {
+      "projectType": "library",
+      "root": "projects/dsd",
+      "sourceRoot": "projects/dsd/src",
+      "prefix": "dsd",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/dsd/tsconfig.lib.json",
+            "project": "projects/dsd/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/dsd/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/dsd/src/test.ts",
+            "tsConfig": "projects/dsd/tsconfig.spec.json",
+            "karmaConfig": "projects/dsd/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/dsd/tsconfig.lib.json",
+              "projects/dsd/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }},
+  "defaultProject": "dsd"
 }
