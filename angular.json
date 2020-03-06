@@ -73,6 +73,10 @@
               "projects/demo/src/assets"
             ],
             "styles": [
+              "node_modules/boosted/dist/css/orangeHelvetica.min.css",
+              "node_modules/boosted/dist/css/orangeIcons.min.css",
+              "node_modules/boosted/dist/css/boosted.min.css",
+              "node_modules/ng-pick-datetime/assets/style/picker.min.css",
               "projects/demo/src/styles.scss"
             ],
             "scripts": []
@@ -137,6 +141,10 @@
               "projects/demo/src/assets"
             ],
             "styles": [
+              "node_modules/boosted/dist/css/orangeHelvetica.min.css",
+              "node_modules/boosted/dist/css/orangeIcons.min.css",
+              "node_modules/boosted/dist/css/boosted.min.css",
+              "node_modules/ng-pick-datetime/assets/style/picker.min.css",
               "projects/demo/src/styles.scss"
             ],
             "scripts": []
@@ -168,6 +176,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "dsd"
+    }
+  },
+  "defaultProject": "dsd",
+  "cli": {
+    "analytics": "2192c448-0fe1-438c-bf63-959c12eb58b3"
+  }
 }

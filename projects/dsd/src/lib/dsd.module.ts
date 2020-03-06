@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
-import { DsdComponent } from './dsd.component';
-
-
+import { TableComponent } from './components/table/table.component';
 
 @NgModule({
-  declarations: [DsdComponent],
+  declarations: [TableComponent],
   imports: [
   ],
-  exports: [DsdComponent]
+  exports: [
+    TableComponent,
+  ],
 })
 export class DsdModule { }
