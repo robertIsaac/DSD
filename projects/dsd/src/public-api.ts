@@ -4,6 +4,13 @@
 
 export * from './lib/components/table/table.component';
 export * from './lib/components/form/form.component';
-export { ENVIRONMENT } from './lib/services/http.service';
+export * from './lib/components/form-base/form-base.component';
+export * from './lib/components/sectioned-form/sectioned-form.component';
+
+export * from './lib/services/role.service';
+export * from './lib/services/http.service';
+export * from './lib/services/notification.service';
+export * from './lib/services/form.service';
+
 export * from './lib/interfaces/table-column';
 export * from './lib/dsd.module';
