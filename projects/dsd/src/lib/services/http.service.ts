@@ -17,7 +17,8 @@ export class HttpService {
     protected httpClient: HttpClient,
     protected notificationService: NotificationService,
     protected router: Router,
-    @Inject(ENVIRONMENT) protected environment: {APIBaseUrl: string}
+    // tslint:disable-next-line:no-any
+    @Inject(ENVIRONMENT) protected environment: any
   ) {
   }
 

@@ -8,7 +8,8 @@
     "watch-library": "ng build --watch",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "publish": "ng build dsd --prod && npm publish dist/dsd"
   },
   "private": true,
   "dependencies": {
