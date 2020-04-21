@@ -30,6 +30,10 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   exports: [
     TableComponent,
+    FormBaseComponent,
+    SelectComponent,
+    SectionedFormComponent,
+    ShownLengthPipe,
     FormComponent,
   ],
 })
