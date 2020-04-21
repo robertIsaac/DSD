@@ -6,12 +6,16 @@ import { CommonModule } from '@angular/common';
 import { OwlDateTimeModule } from 'ng-pick-datetime';
 import { SelectComponent } from './components/select/select.component';
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+import { SectionedFormComponent } from './components/sectioned-form/sectioned-form.component';
+import { ShownLengthPipe } from './pipes/shown-length.pipe';
 
 @NgModule({
   declarations: [
     TableComponent,
     FormBaseComponent,
     SelectComponent,
+    SectionedFormComponent,
+    ShownLengthPipe,
   ],
   imports: [
     ReactiveFormsModule,
