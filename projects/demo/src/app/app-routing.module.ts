@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {TableComponent} from './components/table/table.component';
-import {HomeComponent} from './components/home/home.component';
-
+import { TableComponent } from './components/table/table.component';
+import { HomeComponent } from './components/home/home.component';
+import { FormComponent } from './components/form/form.component';
 
 const routes: Routes = [
   {
@@ -12,11 +12,16 @@ const routes: Routes = [
   {
     path: 'table',
     component: TableComponent,
-  }
+  },
+  {
+    path: 'form',
+    component: FormComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

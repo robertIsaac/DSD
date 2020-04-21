@@ -1,0 +1,21 @@
+<form (ngSubmit)="update()" [formGroup]="formGroup">
+  <dsd-form-base
+    *ngIf="!sections"
+    [columns]="columns"
+    [formGroup]="formGroup"
+    [readonly]="readonly"
+    groupClass="form-group col-lg-4 col-md-6 form-extended-label"></dsd-form-base>
+
+  <dsd-sectioned-form
+    [sectionLevel]="sectionLevel"
+    *ngIf="sections"
+    [formGroup]="formGroup"
+    [readonly]="readonly"
+    [sections]="sections"
+    groupClass="form-group col-lg-4 col-md-6 form-extended-label"></dsd-sectioned-form>
+
+  <div class="my-2 text-right">
+    <button *ngIf="!readonly" [disabled]="formGroup.invalid" class="btn btn-primary">save</button>
+  </div>
+</form>
+

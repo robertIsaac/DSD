@@ -8,6 +8,8 @@ import { SelectComponent } from './components/select/select.component';
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { SectionedFormComponent } from './components/sectioned-form/sectioned-form.component';
 import { ShownLengthPipe } from './pipes/shown-length.pipe';
+import { FormComponent } from './components/form/form.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,7 @@ import { ShownLengthPipe } from './pipes/shown-length.pipe';
     SelectComponent,
     SectionedFormComponent,
     ShownLengthPipe,
+    FormComponent,
   ],
   imports: [
     ReactiveFormsModule,
@@ -23,9 +26,11 @@ import { ShownLengthPipe } from './pipes/shown-length.pipe';
     OwlDateTimeModule,
     NgbTypeaheadModule,
     FormsModule,
+    HttpClientModule,
   ],
   exports: [
     TableComponent,
+    FormComponent,
   ],
 })
 export class DsdModule {
