@@ -16,4 +16,7 @@ export * from './lib/services/notification.service';
 export * from './lib/services/form.service';
 
 export * from './lib/interfaces/table-column';
+export * from './lib/interfaces/api-response';
+export * from './lib/interfaces/notification-options';
+
 export * from './lib/dsd.module';
