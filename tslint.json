@@ -31,7 +31,8 @@
         ]
       }
     ],
-    "no-consecutive-blank-lines": false,
+    "no-any": true,
+    "no-consecutive-blank-lines": true,
     "no-console": [
       true,
       "debug",

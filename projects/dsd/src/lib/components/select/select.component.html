@@ -1,0 +1,18 @@
+<label class="control-label" for="select-{{random}}">
+  <ng-content></ng-content>
+</label>
+<input
+  (click)="click$.next($any($event.target).value)"
+  [disabled]="isDisabled"
+  #instance="ngbTypeahead"
+  (focus)="focus$.next($any($event.target).value)"
+  [placeholder]="data.length === 0 ? 'no options available' : ''"
+  (selectItem)="changed($event)"
+  [(ngModel)]="option"
+  [editable]='false'
+  [inputFormatter]="formatter"
+  [ngbTypeahead]="search"
+  [resultFormatter]="formatter"
+  class="form-control"
+  id="select-{{random}}"
+  type="text"/>

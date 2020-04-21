@@ -1,0 +1,99 @@
+<div [formGroup]="formGroup" class="row">
+  <ng-container *ngFor="let column of columns">
+    <div *ngIf="!column.noFilter && !column.hidden" [class]="groupClass">
+      <ng-container
+        *ngIf="!column.type || column.type === 'number' || ((column.type === 'select' || column.type === 'selectComponent' || column.type === 'yesNo') && (column.readonly || readonly))">
+        <label
+          class="control-label"
+          for="{{column.name}}-{{random}}"
+        >
+          {{column.show}}
+          <span *ngIf="column.validators && column.validators.indexOf(Validators.required) !== -1"
+                class="required">*</span>
+        </label>
+        <input
+          (focusout)="inputChanged(column, $event.target.value)"
+          [formControlName]="column.name"
+          [placeholder]="column.type === 'number' && !(column.readonly || readonly) ? 'number' : ''"
+          [readOnly]="column.readonly || readonly"
+          [type]="column.type === 'number' ? 'number' : 'text'"
+          class="form-control"
+          [ngClass]="{'text-danger':column.is_Range && formGroup.controls[column.name].value<50 ,'text-warning':column.is_Range && formGroup.controls[column.name].value>=50  &&  formGroup.controls[column.name].value <=69 , 'text-success':column.is_Range && formGroup.controls[column.name].value>69 }"
+          id="{{column.name}}-{{random}}"
+        >
+      </ng-container>
+
+      <ng-container *ngIf="column.type === 'select' && !column.readonly && !readonly">
+        <label
+          class="control-label"
+          for="select-{{column.name}}-{{random}}"
+        >
+          {{column.show}}
+          <span *ngIf="column.validators && column.validators.indexOf(Validators.required) !== -1"
+                class="required">*</span>
+        </label>
+        <select
+          [formControlName]="column.name"
+          class="form-control"
+          id="select-{{column.name}}-{{random}}"
+        >
+          <option disabled selected value="">Select</option>
+          <option
+            *ngFor="let value of column.values"
+            [value]="value.value"
+          >{{value.show ? value.show : value.value}}</option>
+        </select>
+      </ng-container>
+
+      <ng-container *ngIf="column.type === 'selectComponent' && !column.readonly && !readonly">
+        <dsd-select [data]="column.values" [formControlName]="column.name">site ID</dsd-select>
+      </ng-container>
+
+      <ng-container *ngIf="column.type === 'date' || column.type === 'datetime'">
+        <label
+          class="control-label"
+          for="date-{{column.name}}"
+        >
+          {{column.show}}
+          <span
+            *ngIf="column.validators && column.validators.indexOf(Validators.required) !== -1"
+            class="required">*</span>
+        </label>
+        <input
+          [formControlName]="column.name"
+          [owlDateTimeTrigger]="dateTimeComponent"
+          [owlDateTime]="dateTimeComponent"
+          [placeholder]="!!column.readonly || readonly ? '' : 'Date'"
+          [readOnly]="column.readonly || readonly"
+          class="form-control"
+          id="date-{{column.name}}"
+          onkeydown="return false"
+        >
+        <owl-date-time
+          #dateTimeComponent
+          [disabled]="!!column.readonly || readonly"
+          [pickerType]="column.type === 'datetime' ? 'both' : 'calendar'"></owl-date-time>
+      </ng-container>
+
+      <ng-container *ngIf="column.type === 'yesNo' && !column.readonly && !readonly">
+        <label
+          class="control-label"
+          for="yesNo-{{column.name}}"
+        >
+          {{column.show}}
+          <span *ngIf="column.validators && column.validators.indexOf(Validators.required) !== -1"
+                class="required">*</span>
+        </label>
+        <select
+          [formControlName]="column.name"
+          class="form-control"
+          id="yesNo-{{column.name}}"
+        >
+          <option disabled selected>Select</option>
+          <option value="yes">yes</option>
+          <option value="no">no</option>
+        </select>
+      </ng-container>
+    </div>
+  </ng-container>
+</div>
