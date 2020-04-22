@@ -122,7 +122,7 @@ export class FormComponent<T> implements OnInit, OnChanges, OnDestroy {
       return;
     }
     const values = FormService.stringifyForm(this.formGroup.value, this.columns);
-    this.httpService.update(this.editId, this.updateUrl, values).subscribe(async response => {
+    this.httpService.update(this.updateUrl, {id: this.editId, ...values}).subscribe(async response => {
       this.getData();
       await this.notificationService.open(response.message, {type: NotificationType.success, title: this.modalTitle}).toPromise();
       setTimeout(() => {

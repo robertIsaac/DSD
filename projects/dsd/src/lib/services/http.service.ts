@@ -26,16 +26,16 @@ export class HttpService {
     return this.httpClient.get<T>(`${this.environment.APIBaseUrl}${getUrl}`);
   }
 
-  update(editId: string, updateUrl: string, value: {}): Observable<ApiResponse> {
-    return this.httpClient.put<ApiResponse>(`${this.environment.APIBaseUrl}${updateUrl}`, {id: editId, ...value});
+  update<T = ApiResponse>(updateUrl: string, value: {}): Observable<T> {
+    return this.httpClient.put<T>(`${this.environment.APIBaseUrl}${updateUrl}`, value);
   }
 
-  insert(insertUrl: string, value: {}): Observable<ApiResponse> {
-    return this.httpClient.post<ApiResponse>(`${this.environment.APIBaseUrl}${insertUrl}`, {id: '', ...value});
+  insert<T = ApiResponse>(insertUrl: string, value: {}): Observable<T> {
+    return this.httpClient.post<T>(`${this.environment.APIBaseUrl}${insertUrl}`, {id: '', ...value});
   }
 
-  delete<T>(id: string, deleteUrl: string): Observable<ApiResponse> {
-    return this.httpClient.delete<ApiResponse>(`${this.environment.APIBaseUrl}${deleteUrl}/${id}`);
+  delete<T = ApiResponse>(deleteUrl: string, id: string): Observable<T> {
+    return this.httpClient.delete<T>(`${this.environment.APIBaseUrl}${deleteUrl}/${id}`);
   }
 
   HandleError(error) {
