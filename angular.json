@@ -76,7 +76,7 @@
               "node_modules/boosted/dist/css/orangeHelvetica.min.css",
               "node_modules/boosted/dist/css/orangeIcons.min.css",
               "node_modules/boosted/dist/css/boosted.min.css",
-              "node_modules/ng-pick-datetime/assets/style/picker.min.css",
+              "node_modules/@danielmoncada/angular-datetime-picker/assets/style/picker.min.css",
               "projects/demo/src/styles.scss"
             ],
             "scripts": []
@@ -144,7 +144,7 @@
               "node_modules/boosted/dist/css/orangeHelvetica.min.css",
               "node_modules/boosted/dist/css/orangeIcons.min.css",
               "node_modules/boosted/dist/css/boosted.min.css",
-              "node_modules/ng-pick-datetime/assets/style/picker.min.css",
+              "node_modules/@danielmoncada/angular-datetime-picker/assets/style/picker.min.css",
               "projects/demo/src/styles.scss"
             ],
             "scripts": []

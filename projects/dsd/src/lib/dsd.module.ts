@@ -3,7 +3,7 @@ import { TableComponent } from './components/table/table.component';
 import { FormBaseComponent } from './components/form-base/form-base.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { OwlDateTimeModule } from 'ng-pick-datetime';
+import { OwlDateTimeModule } from '@danielmoncada/angular-datetime-picker';
 import { SelectComponent } from './components/select/select.component';
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { SectionedFormComponent } from './components/sectioned-form/sectioned-form.component';
