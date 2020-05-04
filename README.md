@@ -1,3 +1,5 @@
+[![npm version](https://badge.fury.io/js/obs-dsd.svg)](https://www.npmjs.com/package/obs-dsd)
+
 # Dsd
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.3.
