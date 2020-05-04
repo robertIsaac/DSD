@@ -1,9 +1,12 @@
 {
   "name": "obs-dsd",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "peerDependencies": {
     "@angular/common": "^9.0.2",
     "@angular/core": "^9.0.2",
     "tslib": "^1.10.0"
+  },
+  "dependencies": {
+    "@danielmoncada/angular-datetime-picker": "^9.3.0"
   }
 }

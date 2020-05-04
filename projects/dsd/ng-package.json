@@ -3,5 +3,8 @@
   "dest": "../../dist/dsd",
   "lib": {
     "entryFile": "src/public-api.ts"
-  }
+  },
+  "whitelistedNonPeerDependencies": [
+    "@danielmoncada/angular-datetime-picker"
+  ]
 }
