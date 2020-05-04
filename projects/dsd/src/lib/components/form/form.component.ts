@@ -59,6 +59,10 @@ export class FormComponent<T> implements OnInit, OnChanges, OnDestroy {
    * note: won't have any affect if sections is not provided
    */
   @Input() sectionLevel: 3 | 4 = 3;
+  /**
+   * whether the native form should offer autocomplete or not on typing
+   */
+  @Input() autocomplete: 'on' | 'off' = 'off';
   protected getSubscription: Subscription;
   protected editId: string;
 
