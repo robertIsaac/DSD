@@ -40,13 +40,13 @@
           <option disabled selected value="">Select</option>
           <option
             *ngFor="let value of column.values"
-            [value]="value.value"
-          >{{value.show ? value.show : value.value}}</option>
+            [value]="value.value ? value.value : value"
+          >{{value.value ? (value.show ? value.show : value.value) : value}}</option>
         </select>
       </ng-container>
 
       <ng-container *ngIf="column.type === 'selectComponent' && !column.readonly && !readonly">
-        <dsd-select [data]="column.values" [formControlName]="column.name">site ID</dsd-select>
+        <dsd-select [data]="column.values" [formControlName]="column.name">{{column.show}}</dsd-select>
       </ng-container>
 
       <ng-container *ngIf="column.type === 'date' || column.type === 'datetime'">

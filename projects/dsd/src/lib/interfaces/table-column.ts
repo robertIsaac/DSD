@@ -25,7 +25,7 @@ export type TableColumnFilterTypes =
   | 'selectComponent'
   | 'monthYear';
 
-export type EditableColumn<T> = EditableColumnInput<T> | EditableColumnSelect<T> | EditableColumnSelectComponent<T> | TableColumnNoFilter;
+export type EditableColumn<T> = EditableColumnInput<T> | EditableColumnSelect<T> | TableColumnNoFilter;
 
 export interface EditableColumnInput<T> extends TableColumnFilter<T> {
   hidden?: true;
@@ -37,12 +37,7 @@ export interface EditableColumnInput<T> extends TableColumnFilter<T> {
 }
 
 export interface EditableColumnSelect<T> extends EditableColumnInput<T> {
-  type: 'select';
-  values: ColumnSelectValue[];
-}
-
-export interface EditableColumnSelectComponent<T> extends EditableColumnInput<T> {
-  type: 'selectComponent';
+  type: 'selectComponent' | 'select';
   values: ColumnSelectValue[] | string[];
 }
 
