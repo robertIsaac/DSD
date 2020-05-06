@@ -14,6 +14,7 @@ export class SectionedFormComponent<T> implements OnInit {
   @Input() readonly = false;
   @Input() groupClass = 'form-group col-lg-4 col-md-6';
   @Input() sectionLevel: 3 | 4 = 3;
+  isCollapsed = [];
 
   constructor() { }
 

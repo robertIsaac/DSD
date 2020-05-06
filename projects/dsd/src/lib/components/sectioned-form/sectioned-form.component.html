@@ -1,38 +1,50 @@
-<!-- the outer loop over the sections -->
-<ng-container *ngFor="let outer_section of sections">
-  <!-- if the outer section contains sections i.e. there is two level sectioning -->
-  <ng-container *ngIf=" outer_section.sections?.length ">
-    <!--  the title of the outer section -->
-    <h2>{{outer_section.title}}</h2>
-    <!-- looping over the sections of the outer section , the second level   -->
-    <ng-container *ngFor="let section of outer_section.sections ">
-      <!--  calling the columns of each section in the second level -->
-      <ng-container [ngTemplateOutlet]="section.columns ? the_section: null"
-                    [ngTemplateOutletContext]="{section:section}">
+<div class="accordion">
+  <ng-container *ngFor="let outer_section of sections">
+    <ng-container *ngIf=" outer_section.sections?.length ">
+      <h2>{{outer_section.title}}</h2>
+
+      <ng-container *ngFor="let section of outer_section.sections ">
+        <ng-container [ngTemplateOutletContext]="{section:section}"
+                      [ngTemplateOutlet]="section.columns ? the_section: null"></ng-container>
       </ng-container>
     </ng-container>
 
+    <ng-container [ngTemplateOutletContext]="{section:outer_section}"
+                  [ngTemplateOutlet]="outer_section.columns ? the_section: null">
+    </ng-container>
+
   </ng-container>
-  <!-- if the outer section contains columns directly i.e. there is only one level sectioning -->
-  <!-- if it contains columns it calls the ng template that shows the columns in table form -->
-  <ng-container [ngTemplateOutlet]="outer_section.columns ? the_section: null"
-                [ngTemplateOutletContext]="{section:outer_section}">
-  </ng-container>
-
-</ng-container>
-
-
-<!--the ng template that shows the columns in table form -->
+</div>
 <ng-template #the_section let-section='section'>
-  <!-- if the section is not hidden and has columns -->
-  <ng-container *ngIf="!section.isHidden && section.columns && (section.columns | shownLength) > 0">
-    <h3 *ngIf="sectionLevel === 3" class="my-3">{{section.title}}</h3>
-    <h4 *ngIf="sectionLevel === 4" class="my-3">{{section.title}}</h4>
-    <!--  sending the columns to the app form to be built into inputs -->
-    <dsd-form-base
-      [columns]="section.columns"
-      [formGroup]="formGroup"
-      [groupClass]="groupClass"
-      [readonly]="readonly"></dsd-form-base>
-  </ng-container>
+  <div *ngIf="!section.isHidden && section.columns && (section.columns | shownLength) > 0" class="card">
+    <div (click)="isCollapsed[section.title] = !isCollapsed[section.title]" class="card-header">
+      <h3 *ngIf="sectionLevel === 3" class="mb-0">
+        <button [attr.aria-expanded]="isCollapsed[section.title]"
+                [class.collapsed]="!isCollapsed[section.title]"
+                aria-controls="collapseOne"
+                class="btn btn-link btn-block text-left"
+                type="button">
+          {{section.title}}
+        </button>
+      </h3>
+      <h4 *ngIf="sectionLevel === 4" class="mb-0">
+        <button [attr.aria-expanded]="isCollapsed[section.title]"
+                [class.collapsed]="!isCollapsed[section.title]"
+                aria-controls="collapseOne"
+                class="btn btn-link btn-block text-left"
+                type="button">
+          {{section.title}}
+        </button>
+      </h4>
+    </div>
+    <div [ngbCollapse]="!isCollapsed[section.title]" class="collapse">
+      <div class="card-body mt-3">
+        <dsd-form-base
+          [columns]="section.columns"
+          [formGroup]="formGroup"
+          [groupClass]="groupClass"
+          [readonly]="readonly"></dsd-form-base>
+      </div>
+    </div>
+  </div>
 </ng-template>

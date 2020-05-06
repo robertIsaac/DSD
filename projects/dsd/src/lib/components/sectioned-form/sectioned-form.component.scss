@@ -1,0 +1,24 @@
+@import "../../../scss/variables";
+
+$accordion-arrow-icon-active-black: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 7'><path fill='#{$black}' d='M7 7L0 0h14L7 7z'/></svg>") !default;
+
+.card-header [aria-expanded=true] {
+  color: $black;
+
+  &::after {
+    background-image: escape-svg($accordion-arrow-icon-active-black);
+  }
+
+  &:hover, &:active, &:focus {
+    color: $primary;
+
+    &::after {
+      background-image: escape-svg($accordion-arrow-icon-active);
+    }
+  }
+}
+
+
+.btn {
+  justify-content: flex-start;
+}
