@@ -17,14 +17,14 @@ export class FilterService {
     data$: Observable<T[]>,
     filter$: Observable<Filter<T, Moment[]>>,
   ): Observable<{ body: T[], pages: number, items: number }> {
-    return combineLatest([data$, filter$]).pipe(
-      map(([data, filter]) => {
-        let body = FilterService.filterData(data, filter);
-        const pages = Math.ceil(body.length / filter.limit);
-        const items = body.length;
-        body = body.slice((filter.page - 1) * filter.limit, filter.page * filter.limit);
-        return {body, pages, items};
-      }));
+    const mapFilter = map(([data, filter]: [T[], Filter<T, Moment[]>]): { body: T[], pages: number, items: number } => {
+      let body = FilterService.filterData(data, filter);
+      const pages = Math.ceil(body.length / filter.limit);
+      const items = body.length;
+      body = body.slice((filter.page - 1) * filter.limit, filter.page * filter.limit);
+      return {body, pages, items};
+    });
+    return combineLatest([data$, filter$]).pipe(mapFilter);
   }
 
   static filterData<T extends { [key in keyof T]: string }>(data: T[], filter: Filter<T, Moment[]>): T[] {
