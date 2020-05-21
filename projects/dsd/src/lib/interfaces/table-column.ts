@@ -15,15 +15,15 @@ export interface TableColumnFilter<T> {
 }
 
 export type TableColumnFilterTypes =
-  'date'
-  | 'datetime'
-  | 'role'
-  | 'yesNo'
-  | 'number'
-  | 'textarea'
-  | 'select'
-  | 'selectComponent'
-  | 'monthYear';
+  'date' |
+  'datetime' |
+  'role' |
+  'yesNo' |
+  'number' |
+  'textarea' |
+  'select' |
+  'selectComponent'
+  ;
 
 export type EditableColumn<T> = EditableColumnInput<T> | EditableColumnSelect<T> | TableColumnNoFilter;
 
