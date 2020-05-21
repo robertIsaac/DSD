@@ -9,7 +9,6 @@ import { NgbCollapseModule, NgbPaginationModule, NgbTabsetModule, NgbTypeaheadMo
 import { SectionedFormComponent } from './components/sectioned-form/sectioned-form.component';
 import { ShownLengthPipe } from './pipes/shown-length.pipe';
 import { FormComponent } from './components/form/form.component';
-import { HttpClientModule } from '@angular/common/http';
 import { FilterTableComponent } from './components/filter-table/filter-table.component';
 
 @NgModule({
@@ -28,7 +27,6 @@ import { FilterTableComponent } from './components/filter-table/filter-table.com
     OwlDateTimeModule,
     NgbTypeaheadModule,
     FormsModule,
-    HttpClientModule,
     NgbCollapseModule,
     NgbTabsetModule,
     NgbPaginationModule,
