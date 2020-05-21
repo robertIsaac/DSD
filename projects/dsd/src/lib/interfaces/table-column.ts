@@ -17,7 +17,6 @@ export interface TableColumnFilter<T> {
 export type TableColumnFilterTypes =
   'date' |
   'datetime' |
-  'role' |
   'yesNo' |
   'number' |
   'textarea' |

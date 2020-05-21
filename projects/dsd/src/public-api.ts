@@ -7,6 +7,7 @@ export * from './lib/components/form/form.component';
 export * from './lib/components/form-base/form-base.component';
 export * from './lib/components/sectioned-form/sectioned-form.component';
 export * from './lib/components/select/select.component';
+export * from './lib/components/filter-table/filter-table.component';
 
 export * from './lib/pipes/shown-length.pipe';
 

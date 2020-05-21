@@ -1,0 +1,178 @@
+<button (click)="hidden = false" *ngIf="columns.length" [hidden]="!hidden" class="btn btn-secondary open-filter">
+  <span>
+    <i class="fas fa-filter"></i>
+    <span class="px-2">filter</span>
+    <i class="fas fa-caret-down"></i>
+  </span>
+</button>
+<ngb-tabset *ngIf="columns.length" [hidden]="hidden">
+  <ngb-tab>
+    <ng-template ngbTabTitle>
+      <span (click)="hidden = true">
+        <i class="fas fa-filter"></i>
+        <span class="px-2">filter</span>
+        <i class="fas fa-caret-up"></i>
+      </span>
+    </ng-template>
+    <ng-template ngbTabContent>
+      <form (reset)="triggerResetFilter()"
+            (submit)="triggerFilter()"
+            [formGroup]="filterForm"
+            autocomplete="off"
+            class="form-inline">
+        <div class="form-group">
+          <label class="control-label sr-only" for="column-{{random}}">Field</label>
+          <select
+            class="form-control mr-2"
+            formControlName="filter"
+            id="column-{{random}}"
+            (change)="fieldChanged()"
+          >
+            <option disabled selected value="">Field Name</option>
+            <ng-container *ngIf="sections else noSection">
+              <optgroup *ngFor="let section of sections" [label]="section.title | titlecase">
+                <ng-container *ngFor="let column of section.columns">
+                  <option
+                    *ngIf="!column.noFilter && !column.hidden"
+                    [value]="column.name">{{column.show | titlecase}}</option>
+                </ng-container>
+              </optgroup>
+            </ng-container>
+
+            <ng-template #noSection>
+              <ng-container *ngFor="let column of columns">
+                <option
+                  *ngIf="!column.noFilter && !column.hidden"
+                  [value]="column.name">{{column.show | titlecase}}</option>
+              </ng-container>
+            </ng-template>
+          </select>
+        </div>
+        <div
+          class="form-group"
+          *ngIf="!type || type === 'selectComponent' || type === 'select' || type === 'number'"
+        >
+          <label class="control-label sr-only" for="value-{{random}}">Value</label>
+          <input class="form-control mr-2" formControlName="value" id="value-{{random}}" placeholder="Value">
+        </div>
+
+        <div *ngIf="type === 'date' || type === 'datetime'">
+          <label class="sr-only" for="date">date</label>
+          <input
+            [owlDateTimeTrigger]="dateTimeComponent"
+            [owlDateTime]="dateTimeComponent"
+            [selectMode]="'range'"
+            class="form-control date mt-2 mt-md-0"
+            formControlName="value"
+            id="date"
+            placeholder="Date Time"
+          >
+          <owl-date-time #dateTimeComponent [pickerType]="type === 'datetime' ? 'both' : 'calendar'"></owl-date-time>
+        </div>
+
+        <div class="form-group" *ngIf="type === 'yesNo'">
+          <label class="control-label sr-only" for="active">active</label>
+          <select class="form-control mr-2" formControlName="value" id="active">
+            <option disabled selected value="">Select</option>
+            <option value="1">yes</option>
+            <option value="0">no</option>
+          </select>
+        </div>
+        <span class="text-right mt-md-0 mt-3 filter-buttons">
+          <button class="btn btn-secondary" type="reset">reset</button>
+          <button [disabled]="filterForm.invalid" class="btn btn-primary" type="submit">apply</button>
+        </span>
+      </form>
+    </ng-template>
+  </ngb-tab>
+</ngb-tabset>
+<div class="w-100 m-4"></div>
+<ng-container *ngIf="noTable">
+  <ng-container *ngTemplateOutlet="ngContentTemplate"></ng-container>
+</ng-container>
+
+<div class="table-responsive mb-3">
+  <table *ngIf="!noTable" class="table table-hover table-sm mb-0">
+    <thead>
+    <ng-container *ngIf="sections">
+      <tr>
+        <ng-container *ngFor="let section of sections">
+          <th
+            *ngIf="(section.columns | shownLength) > 0"
+            [colSpan]="section.columns | shownLength"
+            scope="col"
+          >
+            {{section.title}}
+          </th>
+        </ng-container>
+        <ng-content select="#sections-actions"></ng-content>
+      </tr>
+      <tr>
+        <ng-container *ngFor="let section of sections">
+          <ng-container *ngFor="let column of section.columns">
+            <th (click)="sort(column.name)" *ngIf="!column.hidden" scope="col">
+              {{column.show }}
+              <span
+                *ngIf="column.name === this.sortBy"
+                [class.arrow-down]="this.sortOrder === 'desc'"
+                [class.arrow-up]="this.sortOrder === 'asc'"></span>
+            </th>
+          </ng-container>
+        </ng-container>
+        <ng-container *ngTemplateOutlet="ngActionsTemplate"></ng-container>
+      </tr>
+    </ng-container>
+    <tr *ngIf="!sections">
+      <ng-container *ngIf="columns">
+        <ng-container *ngFor="let column of columns">
+          <th (click)="sort(column.name)" *ngIf="!column.hidden" scope="col">
+            {{column.show }}
+            <span
+              *ngIf="column.name === this.sortBy"
+              [class.arrow-down]="this.sortOrder === 'desc'"
+              [class.arrow-up]="this.sortOrder === 'asc'"></span>
+          </th>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngTemplateOutlet="ngActionsTemplate"></ng-container>
+    </tr>
+    </thead>
+    <tbody *ngIf="data else loading">
+    <ng-container *ngTemplateOutlet="ngContentTemplate"></ng-container>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="pages" class="row p-0 m-0">
+  <div class="col-2 pl-2 pt-2">Showing {{displayedItems}} of {{items}}</div>
+  <div class="col-8 text-center">
+    <ngb-pagination
+      (pageChange)="triggerFilter($event)"
+      [collectionSize]="pages"
+      [maxSize]="5"
+      [pageSize]="1"
+      [page]="page"
+      [rotate]="true"
+    ></ngb-pagination>
+  </div>
+  <div class="col-2 text-right pr-3">
+    <label class="sr-only" for="pages">pages</label>
+    <select id="pages" class="form-control" [(ngModel)]="limit" (change)="triggerFilter()">
+      <option *ngFor="let option of paginationOptions" [value]="option">{{option}}</option>
+    </select>
+  </div>
+</div>
+
+<ng-template #ngContentTemplate>
+  <ng-content></ng-content>
+</ng-template>
+
+<ng-template #ngActionsTemplate>
+  <ng-content select="#actions"></ng-content>
+</ng-template>
+
+<ng-template #loading>
+  <tr>
+    <td [attr.colspan]="columns | shownLength" class="bold">data is loading now.</td>
+  </tr>
+</ng-template>
