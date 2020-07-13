@@ -3,8 +3,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TableComponent } from './table.component';
 
 describe('TableComponent', () => {
-  let component: TableComponent;
-  let fixture: ComponentFixture<TableComponent>;
+  let component: TableComponent<unknown>;
+  // tslint:disable-next-line:no-any
+  let fixture: ComponentFixture<TableComponent<any>>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

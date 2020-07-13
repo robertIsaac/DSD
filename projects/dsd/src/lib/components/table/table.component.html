@@ -1,1 +1,121 @@
-<p>table works!</p>
+<button (click)="open(edit)" *ngIf="insertUrl && !readonly" class="btn btn-secondary position-right" type="button">
+  <i class="fas fa-plus pr-2"></i>
+  add record
+</button>
+
+<div class="position-relative">
+  <dsd-filter-table #table [columns]="columns" [data]="data$ | async" [sections]="sections">
+    <th *ngIf="((updateUrl || deleteUrl) && !readonly) || selectRouterLink" class="action-buttons" id="actions">
+      <div class="invisible">
+        <button *ngIf="updateUrl" class="btn-secondary btn btn-sm mx-2" type="button">edit</button>
+        <button *ngIf="deleteUrl" class="btn-danger btn btn-sm mx-2" type="button">delete</button>
+        <a *ngIf="selectRouterLink" class="btn-secondary btn btn-sm mx-2">select</a>
+      </div>
+    </th>
+    <th
+      *ngIf="(((updateUrl || deleteUrl) && !readonly) || selectRouterLink) && sections"
+      class="action-buttons"
+      id="sections-actions">
+      <div class="invisible">
+        <button *ngIf="updateUrl" class="btn-secondary btn btn-sm mx-2" type="button">edit</button>
+        <button *ngIf="deleteUrl" class="btn-danger btn btn-sm mx-2" type="button">delete</button>
+        <a *ngIf="selectRouterLink" class="btn-secondary btn btn-sm mx-2">select</a>
+      </div>
+    </th>
+    <ng-container *ngIf="table.filteredData | async as filteredData">
+      <tr *ngIf="filteredData.length === 0">
+        <td [attr.colspan]="columns | shownLength" class="bold">No results found.</td>
+      </tr>
+      <tr *ngFor="let row of filteredData">
+        <ng-container *ngFor="let column of columns">
+          <td *ngIf="!column.noFilter && !column.hidden">
+            <ng-container *ngIf="!column.type">
+              {{row[column.name]}}
+            </ng-container>
+            <ng-container *ngIf="column.type === 'date'">
+              {{row[column.name] | date: 'dd-MMM-y'}}
+            </ng-container>
+            <ng-container *ngIf="column.type === 'datetime'">
+              {{row[column.name] | date: 'dd-MMM-y hh:mm a'}}
+            </ng-container>
+            <ng-container *ngIf="column.type === 'yesNo'">
+              {{row[column.name] ? 'yes' : 'no'}}
+            </ng-container>
+            <ng-container
+              *ngIf="column.type === 'select' || column.type === 'selectComponent' || column.type === 'number'">
+              {{row[column.name]}}
+            </ng-container>
+          </td>
+        </ng-container>
+        <td *ngIf="((updateUrl || deleteUrl) && !readonly) || selectRouterLink">
+          <div class="invisible">
+            <button (click)="open(edit, row)" *ngIf="updateUrl" class="btn-secondary btn btn-sm mx-2" type="button">
+              edit
+            </button>
+            <button (click)="delete(row)" *ngIf="deleteUrl" class="btn-danger btn btn-sm mx-2" type="button">
+              delete
+            </button>
+            <a
+              *ngIf="selectRouterLink"
+              [routerLink]="[selectRouterLink, row[primaryKey]]"
+              class="btn-secondary btn btn-sm mx-2">
+              select
+            </a>
+          </div>
+        </td>
+        <td *ngIf="((updateUrl || deleteUrl) && !readonly) || selectRouterLink" class="action-buttons">
+          <div>
+            <button (click)="open(edit, row)" *ngIf="updateUrl" class="btn-secondary btn btn-sm mx-2" type="button">edit
+            </button>
+            <button (click)="delete(row)" *ngIf="deleteUrl" class="btn-danger btn btn-sm mx-2" type="button">delete
+            </button>
+            <a
+              *ngIf="selectRouterLink" [routerLink]="[selectRouterLink, row[primaryKey]]"
+              class="btn-secondary btn btn-sm mx-2">select</a>
+          </div>
+        </td>
+      </tr>
+    </ng-container>
+  </dsd-filter-table>
+</div>
+
+<ng-template #edit let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">{{this.editId ? 'edit' : 'add new'}} {{modalTitle}}</h4>
+
+    <button (click)="modal.dismiss('Cross click')" aria-label="Close" class="close" type="button">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <form (submit)="action()" [formGroup]="formGroup" autocomplete="off">
+    <div class="modal-body">
+
+      <ng-container *ngIf="sections  else notsectioned">
+        <dsd-sectioned-form
+          [formGroup]="formGroup"
+          [readonly]="readonly"
+          [sections]="sections"
+          groupClass="form-group col-md-6 {{groupClass}}"></dsd-sectioned-form>
+      </ng-container>
+
+      <ng-template #notsectioned>
+        <dsd-form-base
+          [columns]="columns"
+          [formGroup]="formGroup"
+          [readonly]="readonly"
+          groupClass="form-group col-md-6 {{groupClass}}"></dsd-form-base>
+      </ng-template>
+    </div>
+
+    <div class="modal-footer">
+      <div class="form-group col-12 text-right p-0">
+        <button (click)="modal.dismiss('cancel click')" class="btn btn-secondary" type="button">cancel</button>
+        <button
+          [disabled]="formGroup.invalid"
+          class="btn btn-primary"
+          type="submit"
+        >{{this.editId ? 'edit' : 'add'}}</button>
+      </div>
+    </div>
+  </form>
+</ng-template>

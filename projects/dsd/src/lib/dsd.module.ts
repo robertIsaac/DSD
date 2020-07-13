@@ -10,6 +10,7 @@ import { SectionedFormComponent } from './components/sectioned-form/sectioned-fo
 import { ShownLengthPipe } from './pipes/shown-length.pipe';
 import { FormComponent } from './components/form/form.component';
 import { FilterTableComponent } from './components/filter-table/filter-table.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { FilterTableComponent } from './components/filter-table/filter-table.com
     NgbCollapseModule,
     NgbTabsetModule,
     NgbPaginationModule,
+    RouterModule,
   ],
   exports: [
     TableComponent,

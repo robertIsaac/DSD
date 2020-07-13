@@ -1,0 +1,47 @@
+:host {
+  display: block;
+  position: relative;
+
+  ::ng-deep {
+    .position-right {
+      transform: translateY(-50%) translateY(1.25rem);
+      z-index: 9;
+    }
+  }
+}
+
+td {
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+tr {
+  height: 51px;
+}
+
+:host ::ng-deep {
+
+  th {
+    white-space: nowrap;
+    vertical-align: middle;
+  }
+
+  tr:hover td.action-buttons {
+    background-color: #eee;
+  }
+
+  th.action-buttons {
+    height: 38px;
+    position: absolute;
+    right: 0;
+    background-color: white;
+  }
+}
+
+
+td.action-buttons {
+  height: 49px;
+  position: absolute;
+  right: 0;
+  background-color: white;
+}
