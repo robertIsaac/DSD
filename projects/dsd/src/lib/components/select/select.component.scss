@@ -1,0 +1,10 @@
+:host ::ng-deep {
+  .dropdown-menu {
+    max-height: 200px;
+    overflow: auto;
+  }
+
+  ngb-typeahead-window {
+    width: calc(100% - 24px);
+  }
+}

@@ -16,6 +16,10 @@ import { NotificationType } from '../../interfaces/notification-options';
  * this component to be used to generate forms, fetch it's current value and save them
  */
 export class FormComponent<T> implements OnInit, OnChanges, OnDestroy {
+
+  /**
+   * the form group of the form
+   */
   formGroup: FormGroup;
   /**
    * will be used as the modal title when confirming or displaying the API response
@@ -63,7 +67,15 @@ export class FormComponent<T> implements OnInit, OnChanges, OnDestroy {
    * whether the native form should offer autocomplete or not on typing
    */
   @Input() autocomplete: 'on' | 'off' = 'off';
+  /**
+   * the subscription of get
+   */
   protected getSubscription: Subscription;
+  /**
+   * the value of the unique id returned by the data
+   * eg. if primary key is siteId and the api returned object like {siteId: 'foo', city: 'bar' ...}
+   * editId will have the value foo
+   */
   protected editId: string;
 
   constructor(
@@ -94,6 +106,10 @@ export class FormComponent<T> implements OnInit, OnChanges, OnDestroy {
     }
   }
 
+  /**
+   * this method is called when the component render or when the form or when he saves it
+   * it calls the given API and set the values of the form by the returned value
+   */
   getData() {
     this.getSubscription = this.httpService.get<T>(this.getUrl).subscribe(data => {
       this.handleData(data);
@@ -101,6 +117,10 @@ export class FormComponent<T> implements OnInit, OnChanges, OnDestroy {
     }, error => this.httpService.HandleError(error));
   }
 
+  /**
+   * this method is called by get data
+   * it make sure the form inputs has been set correctly
+   */
   handleData(data: T) {
     const pk = data ? data[this.primaryKey] : null;
     this.editId = typeof pk === 'string' ? pk : null;
@@ -120,6 +140,9 @@ export class FormComponent<T> implements OnInit, OnChanges, OnDestroy {
     }
   }
 
+  /**
+   * this method is called when the user want to submit the form
+   */
   async update() {
     const confirm = await this.notificationService.open(this.modalTitle, {type: NotificationType.confirm}).toPromise();
     if (!confirm) {

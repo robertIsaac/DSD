@@ -14,7 +14,7 @@ import { Moment } from 'moment';
 })
 /**
  * this component filters and paginates data of the table
- * @note this component accept ng-content
+ * @note this component accept ng-content, either table or list of trs
  *
  * @example
  * <app-filter-table>
@@ -36,11 +36,9 @@ import { Moment } from 'moment';
  */
 export class FilterTableComponent<T> implements OnInit, OnChanges, OnDestroy {
 
-  private data$ = new BehaviorSubject<{ [key in keyof T]: string }[]>(null);
-  private filteredData$ = new BehaviorSubject<T[]>(null);
   /**
-   * if true it means to create only the filter and pagination sections so it's content should be of type <table>
-   * if false then the content will be added inside the tbody and should be of type <tr>
+   * if true (send table) it means to create only the filter and pagination sections so it's content should be of type <table>
+   * if false (send tr) will create table then the content will be added inside the tbody and should be of type <tr>
    * @example
    * with default false
    *  * <app-filter-table>
@@ -74,6 +72,14 @@ export class FilterTableComponent<T> implements OnInit, OnChanges, OnDestroy {
    */
   @Input() noTable = false;
   /**
+   * internal object that handle the input data
+   */
+  private data$ = new BehaviorSubject<{ [key in keyof T]: string }[]>(null);
+  /**
+   * internal object that handle filtered output data
+   */
+  private filteredData$ = new BehaviorSubject<T[]>(null);
+  /**
    * the columns of the data
    */
   @Input() columns: TableColumn<T>[];
@@ -97,19 +103,58 @@ export class FilterTableComponent<T> implements OnInit, OnChanges, OnDestroy {
    * it send the filtered data
    */
   @Output() filteredData: Observable<T[]> = this.filteredData$.pipe(filter(data => !!data));
+  /**
+   * random number to be attached to the id to make it unique
+   */
   random = Math.random();
+  /**
+   * if the filter form should be displayed or hidden
+   */
   hidden = true;
+  /**
+   * how many pages that the table has
+   */
   pages: number;
+  /**
+   * the current page
+   */
   page = 1;
+  /**
+   * the filter form group
+   */
   filterForm: FormGroup;
+  /**
+   * the type of the selected filter
+   */
   type: TableColumnFilterTypes;
+  /**
+   * the limit of items per page
+   */
   limit = 10;
+  /**
+   * pagination number options
+   */
   paginationOptions = [10, 25, 50, 100];
-  private dataSubscription: Subscription;
+  /**
+   * total number of items
+   */
   items: number;
+  /**
+   * total number of displayed items
+   */
   displayedItems: number;
+  /**
+   * the column that the table is sorted by
+   */
   sortBy: keyof T & string;
+  /**
+   * sort asc or desc
+   */
   sortOrder: 'asc' | 'desc';
+  /**
+   * subscription of data observable
+   */
+  private dataSubscription: Subscription;
 
   constructor(
     protected formBuilder: FormBuilder,
@@ -132,10 +177,16 @@ export class FilterTableComponent<T> implements OnInit, OnChanges, OnDestroy {
     this.triggerResetFilter();
   }
 
+  /**
+   * check whether the given input is array of T or no
+   */
   isT(array: unknown): array is T[] {
     return (array as unknown[]).length >= 0;
   }
 
+  /**
+   * this method is triggered whenever one of the component inputs has been changed
+   */
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.columns && !changes.columns.isFirstChange()) {
       this.triggerResetFilter();
@@ -145,6 +196,9 @@ export class FilterTableComponent<T> implements OnInit, OnChanges, OnDestroy {
     }
   }
 
+  /**
+   * reset table filter, display all data
+   */
   triggerResetFilter() {
     this.fieldChanged();
     this.filter.emit({
@@ -155,6 +209,9 @@ export class FilterTableComponent<T> implements OnInit, OnChanges, OnDestroy {
     });
   }
 
+  /**
+   * this method is triggered whenever one of the filters is changed, it emits the new filter values
+   */
   triggerFilter(page: number = 1) {
     this.page = page;
     this.filter.emit({
@@ -168,6 +225,9 @@ export class FilterTableComponent<T> implements OnInit, OnChanges, OnDestroy {
     );
   }
 
+  /**
+   * this method is triggered when the user change the filter field(column)
+   */
   fieldChanged() {
     const selectedFilter = this.columns.find(thisFilter => {
       return isFilterableColumn(thisFilter) && this.filterForm && thisFilter.name === this.filterForm.controls.filter.value;
@@ -182,12 +242,18 @@ export class FilterTableComponent<T> implements OnInit, OnChanges, OnDestroy {
     this.type = type;
   }
 
+  /**
+   * this method is triggered whenever the user navigate away from the component
+   */
   ngOnDestroy(): void {
     if (this.dataSubscription) {
       this.dataSubscription.unsubscribe();
     }
   }
 
+  /**
+   * this method is triggered when the user click on a column head, will determine the sort column and order
+   */
   sort(name: keyof T & string) {
     this.sortOrder = this.sortBy === name && this.sortOrder === 'asc' ? 'desc' : 'asc';
     this.sortBy = name;

@@ -1,6 +1,7 @@
 <div [formGroup]="formGroup" class="row">
   <ng-container *ngFor="let column of columns">
     <div *ngIf="!column.noFilter && !column.hidden" [class]="groupClass">
+      <!-- if the column is input -->
       <ng-container
         *ngIf="!column.type || column.type === 'number' || ((column.type === 'select' || column.type === 'selectComponent' || column.type === 'yesNo') && (column.readonly || readonly))">
         <label
@@ -23,6 +24,7 @@
         >
       </ng-container>
 
+      <!-- if the column is select -->
       <ng-container *ngIf="column.type === 'select' && !column.readonly && !readonly">
         <label
           class="control-label"
@@ -45,10 +47,12 @@
         </select>
       </ng-container>
 
+      <!-- if the column is component select -->
       <ng-container *ngIf="column.type === 'selectComponent' && !column.readonly && !readonly">
         <dsd-select [data]="column.values" [formControlName]="column.name">{{column.show}}</dsd-select>
       </ng-container>
 
+      <!-- if the column is data/datetime -->
       <ng-container *ngIf="column.type === 'date' || column.type === 'datetime'">
         <label
           class="control-label"
@@ -75,6 +79,7 @@
           [pickerType]="column.type === 'datetime' ? 'both' : 'calendar'"></owl-date-time>
       </ng-container>
 
+      <!-- if the column is yes or no -->
       <ng-container *ngIf="column.type === 'yesNo' && !column.readonly && !readonly">
         <label
           class="control-label"

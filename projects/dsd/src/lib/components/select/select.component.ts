@@ -43,10 +43,25 @@ export class SelectComponent<T extends { [key in keyof T]: string }> implements 
    * if not provided then will use primaryKey attribute
    */
   @Input() display: keyof T & string;
+  /**
+   * emits whenever the user focus on the input
+   */
   focus$ = new Subject<string>();
+  /**
+   * emits whenever the user click on the input
+   */
   click$ = new Subject<string>();
+  /**
+   * the selected option
+   */
   option: T;
+  /**
+   * random number to be added to the id of the native HTML element to prevent duplicate ids
+   */
   random = Math.random();
+  /**
+   * whether the input should be disabled or not
+   */
   isDisabled: boolean;
 
   constructor() {
@@ -60,6 +75,9 @@ export class SelectComponent<T extends { [key in keyof T]: string }> implements 
     this.propagateChange(1);
   }
 
+  /**
+   * is called whenever the user open the list of the options
+   */
   formatter = (option: T) => this.getDisplay(option);
 
   search = (text$: Observable<string>) => {
@@ -72,6 +90,9 @@ export class SelectComponent<T extends { [key in keyof T]: string }> implements 
     );
   }
 
+  /**
+   * return which property of the given object should be displayed
+   */
   getDisplay(option: T): string {
     if (typeof option === 'string') {
       return option;
@@ -84,6 +105,9 @@ export class SelectComponent<T extends { [key in keyof T]: string }> implements 
     }
   }
 
+  /**
+   * return which property of the given object is the primary value
+   */
   getPrimaryKey(option: T): string {
     if (typeof option === 'string') {
       return option;
@@ -93,6 +117,10 @@ export class SelectComponent<T extends { [key in keyof T]: string }> implements 
     }
   }
 
+  /**
+   * this method is called by Angular whenever we programmatically change the input value
+   * if the input value has changed, use the new value
+   */
   writeValue(obj): void {
     if (obj && this.data) {
       this.option = this.data.find(option => this.getPrimaryKey(option) === obj);
@@ -106,10 +134,18 @@ export class SelectComponent<T extends { [key in keyof T]: string }> implements 
   registerOnTouched(fn): void {
   }
 
+  /**
+   * if the user selected an option
+   */
   changed($event: NgbTypeaheadSelectItemEvent) {
     this.propagateChange(this.getPrimaryKey($event.item));
   }
 
+  /**
+   * this method will be called by Angular forms when the form control disable property value change
+   * if the input should be disabled
+   * it's required, but not used
+   */
   setDisabledState(isDisabled: boolean) {
     this.isDisabled = isDisabled;
   }

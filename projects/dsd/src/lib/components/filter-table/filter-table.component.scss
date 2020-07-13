@@ -1,0 +1,55 @@
+@import "../../../scss/variables";
+
+:host {
+  display: block;
+}
+
+ngb-pagination {
+  display: inline-block;
+}
+
+#pages {
+  width: auto;
+  display: inline;
+}
+
+.filter-buttons {
+  flex: 100;
+}
+
+.btn.open-filter {
+  padding: .875rem 1.875rem;
+}
+
+td, th {
+  white-space: nowrap;
+}
+
+th {
+  cursor: pointer;
+  padding-right: 20px;
+}
+
+:host ::ng-deep {
+  .page-link span {
+    display: none;
+  }
+}
+
+.arrow-down {
+  @include caret();
+}
+
+.arrow-up {
+  @include caret(up);
+}
+
+.arrow-down, .arrow-up {
+  position: relative;
+
+  &:after {
+    position: absolute;
+    top: 7px;
+    left: 7px;
+  }
+}
