@@ -26,7 +26,7 @@
     "@danielmoncada/angular-datetime-picker": "^9.3.0",
     "@ng-bootstrap/ng-bootstrap": "^6.1.0",
     "boosted": "^4.4.1",
-    "moment": "^2.29.2",
+    "moment": "^2.29.4",
     "ng-boosted": "^5.2.0",
     "rxjs": "~6.5.5",
     "tslib": "^1.11.1",
