@@ -5,16 +5,17 @@
     <i class="fas fa-caret-down"></i>
   </span>
 </button>
-<ngb-tabset *ngIf="columns.length" [hidden]="hidden">
-  <ngb-tab>
-    <ng-template ngbTabTitle>
+<ul *ngIf="columns.length" [hidden]="hidden" ngbNav>
+  <li [ngbNavItem]="1">
+    <a ngbNavLink>
       <span (click)="hidden = true">
-        <i class="fas fa-filter"></i>
-        <span class="px-2">filter</span>
-        <i class="fas fa-caret-up"></i>
-      </span>
-    </ng-template>
-    <ng-template ngbTabContent>
+      <i class="fas fa-filter"></i>
+      <span class="px-2">filter</span>
+      <i class="fas fa-caret-up"></i>
+    </span>
+    </a>
+
+    <ng-template ngbNavContent>
       <form (reset)="triggerResetFilter()"
             (submit)="triggerFilter()"
             [formGroup]="filterForm"
@@ -79,13 +80,13 @@
           </select>
         </div>
         <span class="text-right mt-md-0 mt-3 filter-buttons">
-          <button class="btn btn-secondary" type="reset">reset</button>
-          <button [disabled]="filterForm.invalid" class="btn btn-primary" type="submit">apply</button>
-        </span>
+        <button class="btn btn-secondary" type="reset">reset</button>
+        <button [disabled]="filterForm.invalid" class="btn btn-primary" type="submit">apply</button>
+      </span>
       </form>
     </ng-template>
-  </ngb-tab>
-</ngb-tabset>
+  </li>
+</ul>
 <div class="w-100 m-4"></div>
 <ng-container *ngIf="noTable">
   <ng-container *ngTemplateOutlet="ngContentTemplate"></ng-container>

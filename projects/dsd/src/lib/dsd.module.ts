@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { OwlDateTimeModule } from '@danielmoncada/angular-datetime-picker';
 import { SelectComponent } from './components/select/select.component';
-import { NgbCollapseModule, NgbPaginationModule, NgbTabsetModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCollapseModule, NgbNavModule, NgbPaginationModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { SectionedFormComponent } from './components/sectioned-form/sectioned-form.component';
 import { ShownLengthPipe } from './pipes/shown-length.pipe';
 import { FormComponent } from './components/form/form.component';
@@ -30,7 +30,7 @@ import { FilterTableComponent } from './components/filter-table/filter-table.com
     FormsModule,
     HttpClientModule,
     NgbCollapseModule,
-    NgbTabsetModule,
+    NgbNavModule,
     NgbPaginationModule,
   ],
   exports: [
