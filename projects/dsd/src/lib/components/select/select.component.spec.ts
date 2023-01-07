@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { SelectComponent } from './select.component';
 
@@ -7,7 +7,7 @@ describe('SelectComponent', () => {
   // tslint:disable-next-line:no-any
   let fixture: ComponentFixture<SelectComponent<any>>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ SelectComponent ]
     })
