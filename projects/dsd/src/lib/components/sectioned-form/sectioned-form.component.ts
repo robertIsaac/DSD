@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Section } from '../../interfaces/table-column';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 
 @Component({
   selector: 'dsd-sectioned-form',
@@ -9,7 +9,7 @@ import { FormGroup } from '@angular/forms';
 })
 export class SectionedFormComponent<T> implements OnInit {
 
-  @Input() formGroup: FormGroup;
+  @Input() formGroup: UntypedFormGroup;
   @Input() sections: Section<T>[];
   @Input() readonly = false;
   @Input() groupClass = 'form-group col-lg-4 col-md-6';

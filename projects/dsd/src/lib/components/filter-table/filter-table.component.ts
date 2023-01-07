@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { filter } from 'rxjs/operators';
 import { isFilterableColumn, Section, TableColumn, TableColumnFilterTypes } from '../../interfaces/table-column';
 import { Filter } from '../../interfaces/filter';
@@ -101,7 +101,7 @@ export class FilterTableComponent<T> implements OnInit, OnChanges, OnDestroy {
   hidden = true;
   pages: number;
   page = 1;
-  filterForm: FormGroup;
+  filterForm: UntypedFormGroup;
   type: TableColumnFilterTypes;
   limit = 10;
   paginationOptions = [10, 25, 50, 100];
@@ -112,7 +112,7 @@ export class FilterTableComponent<T> implements OnInit, OnChanges, OnDestroy {
   sortOrder: 'asc' | 'desc';
 
   constructor(
-    protected formBuilder: FormBuilder,
+    protected formBuilder: UntypedFormBuilder,
   ) {
   }
 

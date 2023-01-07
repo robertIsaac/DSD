@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { formatDate } from '@angular/common';
 import { EditableColumn, isFilterableColumn, Section, TableColumn } from '../interfaces/table-column';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
@@ -12,20 +12,20 @@ export class FormService {
   }
 
   static generateFormGroup<T>(columns: EditableColumn<T>[]) {
-    const formGroup = new FormGroup({});
+    const formGroup = new UntypedFormGroup({});
     for (const column of columns) {
-      let control: FormControl;
+      let control: UntypedFormControl;
       if (!isFilterableColumn(column)) {
         continue;
       }
       if (column.readonly === true) {
-        control = new FormControl(column.defaultValue);
+        control = new UntypedFormControl(column.defaultValue);
       } else {
         const validators = column.validators ? column.validators : [];
         if (column.type === 'number') {
-          control = new FormControl('', [...validators, Validators.pattern(/^-?[0-9]*(\.[0-9]*)?$/)]);
+          control = new UntypedFormControl('', [...validators, Validators.pattern(/^-?[0-9]*(\.[0-9]*)?$/)]);
         } else {
-          control = new FormControl('', validators);
+          control = new UntypedFormControl('', validators);
         }
       }
       formGroup.addControl(column.name, control);

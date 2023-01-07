@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { FormGroup, Validators } from '@angular/forms';
+import { UntypedFormGroup, Validators } from '@angular/forms';
 import { EditableColumn, EditableColumnInput, isFilterableColumn } from '../../interfaces/table-column';
 import { RoleService } from '../../services/role.service';
 
@@ -21,7 +21,7 @@ export class FormBaseComponent<T> implements OnInit, OnChanges {
   /**
    * the formGroup to bind the form to
    */
-  @Input() formGroup: FormGroup;
+  @Input() formGroup: UntypedFormGroup;
 
   /**
    * whether the user can only see form or update its values as well

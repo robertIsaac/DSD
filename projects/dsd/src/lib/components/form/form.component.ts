@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { EditableColumn, isFilterableColumn, Section } from '../../interfaces/table-column';
 import { Subscription } from 'rxjs';
 import { FormService } from '../../services/form.service';
@@ -16,7 +16,7 @@ import { NotificationType } from '../../interfaces/notification-options';
  * this component to be used to generate forms, fetch it's current value and save them
  */
 export class FormComponent<T> implements OnInit, OnChanges, OnDestroy {
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
   /**
    * will be used as the modal title when confirming or displaying the API response
    */
