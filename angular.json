@@ -15,7 +15,7 @@
       "prefix": "dsd",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "projects/dsd/tsconfig.lib.json",
             "project": "projects/dsd/ng-package.json"
