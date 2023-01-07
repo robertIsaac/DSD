@@ -4,8 +4,10 @@
   "peerDependencies": {
     "@angular/common": "^9.0.2",
     "@angular/core": "^9.0.2",
-    "tslib": "^1.10.0",
     "@danielmoncada/angular-datetime-picker": "^9.3.1"
+  },
+  "dependencies": {
+    "tslib": "^2.0.0"
   },
   "repository": "https://github.com/robertIsaac/DSD"
 }
