@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "publish": "ng build dsd --prod && npm publish dist/dsd"
+    "publish": "ng build dsd --configuration production && npm publish dist/dsd"
   },
   "private": true,
   "dependencies": {
