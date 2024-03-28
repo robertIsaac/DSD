@@ -27,7 +27,7 @@
     "@ng-bootstrap/ng-bootstrap": "^16.0.0",
     "boosted": "^4.6.2",
     "moment": "^2.29.4",
-    "rxjs": "~6.5.5",
+    "rxjs": "^7.8.1",
     "tslib": "^2.0.0",
     "zone.js": "~0.14.4"
   },
